@@ -3,20 +3,28 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import getItems from "api/_axios";
+import getItems, { SearchParams } from "api/_axios";
+import { ReduxState } from "store";
 import { Product } from "types";
 
-const fetchData = createAsyncThunk("products", async () => {
-  const result = (await getItems()).data;
-  return Array.isArray(result) ? result : [result];
-});
+export const fetchData = createAsyncThunk(
+  "products",
+  async (params?: SearchParams) => {
+    const result = (await getItems(params)).data;
+    return Array.isArray(result) ? result : [result];
+  }
+);
 
 const productsAdapter = createEntityAdapter<Product>();
 const initialState = productsAdapter.getInitialState<{
   status: "iddle" | "loading" | "success" | "error";
   error?: string;
+  page: number;
+  per_page: number;
 }>({
   status: "iddle",
+  page: 1,
+  per_page: 5,
 });
 
 const productsSlice = createSlice({
@@ -39,3 +47,5 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
+export const { selectAll: selectAllProd } =
+  productsAdapter.getSelectors<ReduxState>((state) => state.products);

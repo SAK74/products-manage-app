@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { Product } from "types";
 
 const url = "http://reqres.in/api/products";
@@ -17,11 +17,13 @@ interface ApiResponse extends PageParams {
   data: Product | Product[];
 }
 
-interface SearchParams extends PageParams {
+export interface SearchParams extends PageParams {
   id?: number;
 }
 
-export default function getItems(params?: SearchParams) {
+export default function getItems(
+  params: SearchParams = { per_page: 5, page: 1 }
+) {
   if (params) {
     defaultConfig.params = params;
   }
