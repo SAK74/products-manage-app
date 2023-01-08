@@ -11,3 +11,4 @@ export const store = configureStore({
 export type ReduxState = ReturnType<typeof store.getState>;
 export const useReduxDispatch = useDispatch<typeof store.dispatch>;
 export const useReduxSelector: TypedUseSelectorHook<ReduxState> = useSelector;
+// export type ReduxDispatch = typeof store.dispatch;

@@ -11,7 +11,7 @@ interface PageParams {
   per_page?: number;
 }
 
-interface ApiResponse extends PageParams {
+export interface ApiResponse extends PageParams {
   total?: number;
   total_pages?: number;
   data: Product | Product[];
@@ -21,9 +21,7 @@ export interface SearchParams extends PageParams {
   id?: number;
 }
 
-export default function getItems(
-  params: SearchParams = { per_page: 5, page: 1 }
-) {
+export default function getItems(params?: SearchParams) {
   if (params) {
     defaultConfig.params = params;
   }
