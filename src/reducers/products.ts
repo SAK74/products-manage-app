@@ -33,7 +33,7 @@ const initialState = productsAdapter.getInitialState<{
 }>({
   status: "iddle",
   page: 1,
-  per_page: 6,
+  per_page: 5,
   total: -1,
 });
 
@@ -56,7 +56,10 @@ const productsSlice = createSlice({
       .addCase(
         fetchData.fulfilled,
         (state, { payload: { total, data, page, per_page } }) => {
-          state.total = total ? total : 1;
+          if (total) {
+            state.total = total;
+          }
+          // state.total = total ? total : 1;
           if (page) {
             state.page = page;
           }

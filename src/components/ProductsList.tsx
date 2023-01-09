@@ -35,7 +35,7 @@ export default function ProductsList() {
   const handlePerPageChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
   }) => {
-    dispatch(fetchData({ per_page: +value }));
+    dispatch(fetchData({ per_page: +value, page: 1 }));
   };
   return (
     <TableContainer component={Paper} sx={{ width: 2 / 5 }}>
@@ -55,7 +55,7 @@ export default function ProductsList() {
               page={page - 1}
               rowsPerPage={per_page}
               onPageChange={handlePageChange}
-              rowsPerPageOptions={[5, 6, 10, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[5, 6, 10, { label: "All", value: total }]}
               onRowsPerPageChange={handlePerPageChange}
             />
           </TableRow>
