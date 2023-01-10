@@ -1,9 +1,12 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { Product } from "types";
 
-const url = "http://reqres.in/api/products";
+// const SERVER = "http://reqres.in/api"; // default
+// const SERVER = "https://simple-server-sage.vercel.app"; // VERCEL
+const SERVER = "http://192.168.0.55:4000"; // local
 const defaultConfig: AxiosRequestConfig = {
-  url,
+  baseURL: SERVER,
+  url: "/products",
 };
 
 interface PageParams {
