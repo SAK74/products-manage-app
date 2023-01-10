@@ -9,7 +9,7 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import { ChangeEventHandler, MouseEvent, useEffect } from "react";
+import { ChangeEventHandler, Fragment, MouseEvent, useEffect } from "react";
 import { fetchData, selectAllProd } from "reducers/products";
 import { useReduxDispatch, useReduxSelector } from "store";
 import ProductComponent from "./Product";
@@ -19,9 +19,9 @@ export default function ProductsList() {
   const products = useReduxSelector(selectAllProd);
   const { page, per_page, total } = useReduxSelector((state) => state.products);
   const rows = products.map((product) => (
-    <TableRow key={product.id} sx={{ background: product.color }}>
+    <Fragment key={product.id}>
       <ProductComponent {...product} />
-    </TableRow>
+    </Fragment>
   ));
   useEffect(() => {
     dispatch(fetchData());

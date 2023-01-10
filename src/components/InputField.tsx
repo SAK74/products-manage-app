@@ -1,10 +1,8 @@
 import { IconButton, TextField } from "@mui/material";
-import { Box } from "@mui/system";
 import SearchIcon from "@mui/icons-material/ContentPasteSearch";
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useReduxDispatch, useReduxSelector } from "store";
 import { fetchData } from "reducers/products";
-// import { useReduxSelector } from "store";
 
 export default function InputField() {
   const [input, setInput] = useState(0);
@@ -35,7 +33,11 @@ export default function InputField() {
         error={inputError}
         helperText={inputError && `Id should't be more of ${total}`}
       />
-      <IconButton children={<SearchIcon />} type="submit" />
+      <IconButton
+        children={<SearchIcon />}
+        type="submit"
+        disabled={!input || input > total}
+      />
     </form>
   );
 }
