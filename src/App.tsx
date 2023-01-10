@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Alert, AlertTitle } from "@mui/material";
+import { Box } from "@mui/system";
+import { InputField, ProdList } from "components";
+import { useReduxSelector } from "store";
+import "./App.css";
 
 function App() {
+  const { error } = useReduxSelector((state) => state.products);
+  const content = error ? (
+    <Alert severity="error" sx={{ width: 1 / 2 }}>
+      <AlertTitle>Error</AlertTitle>
+      {error}
+    </Alert>
+  ) : (
+    <>
+      <InputField />
+      <ProdList />
+    </>
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      {content}
+    </Box>
   );
 }
 
