@@ -6,6 +6,7 @@ import {
 import getItems, { ApiResponse, SearchParams } from "api/_axios";
 import { ReduxState } from "store";
 import { Product } from "types";
+import qs from "qs";
 
 export const fetchData = createAsyncThunk<
   ApiResponse,
@@ -20,6 +21,8 @@ export const fetchData = createAsyncThunk<
     per_page: params?.per_page ? params.per_page : state_per_page,
     id: params?.id,
   };
+  const query = qs.stringify(requestParams);
+  window.history.replaceState(requestParams, "", query);
   return await getItems(requestParams);
 });
 
@@ -40,14 +43,7 @@ const initialState = productsAdapter.getInitialState<{
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {
-    // setPage: (state, action) => {
-    //   state.page = action.payload;
-    // },
-    // setPerPage: (state, { payload }) => {
-    //   state.per_page = payload;
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state) => {
@@ -59,7 +55,6 @@ const productsSlice = createSlice({
           if (total) {
             state.total = total;
           }
-          // state.total = total ? total : 1;
           if (page) {
             state.page = page;
           }
@@ -80,4 +75,3 @@ const productsSlice = createSlice({
 export default productsSlice.reducer;
 export const { selectAll: selectAllProd } =
   productsAdapter.getSelectors<ReduxState>((state) => state.products);
-// export const { setPage, setPerPage } = productsSlice.actions;

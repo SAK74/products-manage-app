@@ -2,8 +2,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import { Product } from "types";
 
 // const SERVER = "http://reqres.in/api"; // default
-// const SERVER = "https://simple-server-sage.vercel.app"; // VERCEL
-const SERVER = "http://192.168.0.55:4000"; // local
+const SERVER = "https://simple-server-sage.vercel.app"; // VERCEL
+// const SERVER = "http://192.168.0.55:4000"; // local
 const defaultConfig: AxiosRequestConfig = {
   baseURL: SERVER,
   url: "/products",
@@ -28,7 +28,8 @@ export default function getItems(params?: SearchParams) {
   if (params) {
     defaultConfig.params = params;
   }
-  return axios<ApiResponse>(defaultConfig)
+  return axios
+    .request<ApiResponse>(defaultConfig)
     .then((resp) => resp.data)
     .catch((err: Error) => {
       throw new Error(err.message);
