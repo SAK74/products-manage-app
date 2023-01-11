@@ -25,6 +25,7 @@ export default function SimplyProduct({
   return (
     <>
       <TableRow
+        data-testid="product"
         sx={{ background: color, cursor: "pointer" }}
         onClick={switchOpen}
       >
